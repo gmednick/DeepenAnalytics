@@ -4,7 +4,8 @@
 widget: blank
 
 # Activate this widget? true/false
-active: false
+active: true
+
 
 # This file represents a page section.
 headless: true
@@ -18,7 +19,7 @@ subtitle:
 design:
   columns: "1"
   background:
-    image: usgs-Eu2uXqoHenE-unsplash.jpg
+    image: sarah-lee-QURU8IY-RaI-unsplash.jpg
     image_darken: 0.55
     image_parallax: false
     image_position: center

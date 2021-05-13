@@ -18,7 +18,7 @@ subtitle:
 design:
   columns: "1"
   background:
-    image: usgs-Eu2uXqoHenE-unsplash.jpg
+    image: sarah-lee-QURU8IY-RaI-unsplash.jpg
     image_darken: 0.6
     image_parallax: true
     image_position: center

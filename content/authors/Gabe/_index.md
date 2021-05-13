@@ -29,7 +29,7 @@ name: Gabe Mednick
 organizations:
 - name: Deepen Analytics
   url: 
-role: Co-founder and CEO
+role: Co-founder and CSO
 social:
 - icon: envelope
   icon_pack: far
