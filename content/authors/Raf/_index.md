@@ -19,9 +19,9 @@ interests:
 - Computational Linguistics
 - Information Retrieval
 organizations:
-- name: Stanford University
+- name: Deepen Analytics
   url: https://www.stanford.edu/
-role: Professor of Artificial Intelligence
+role: Co-founder and CEO
 social:
 - icon: envelope
   icon_pack: fas

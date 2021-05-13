@@ -27,9 +27,9 @@ interests:
 
 name: Gabe Mednick
 organizations:
-- name: 
+- name: Deepen Analytics
   url: 
-role: 
+role: Co-founder and CEO
 social:
 - icon: envelope
   icon_pack: far
@@ -51,6 +51,7 @@ social:
   icon_pack: ai
   link:
 superuser: true
+title: Gabriel Mednick
 
 ---
 
