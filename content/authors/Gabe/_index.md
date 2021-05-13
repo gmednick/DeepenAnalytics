@@ -54,10 +54,10 @@ superuser: true
 
 ---
 
-My scientific interests are at the intersection of microbiology, molecular biology, biochemistry, physical chemistry and bioinformatics. 
+My scientific interests are at the intersection of microbiology, molecular biology, biochemistry, physical chemistry and bioinformatics.
 
 I enjoy the challenge of drawing insight from new types of data. My passion for data science.
-
+ 
 
 {{< icon name="download" pack="fas" >}} Download my {{< staticref "media/gmednickCV.pdf" "newtab" >}}resumé{{< /staticref >}}.
 
