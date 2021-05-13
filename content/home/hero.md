@@ -29,7 +29,9 @@ advanced:
 
 ****
 
-Deepen Analytics is full stop shop for developing custom data analytics and bioinformatics workflows. We work with companies, institutions and individual researchers on a contract basis. No job is too small. 
+Deepen Analytics is full stop shop for your data needs. Our team can help you develop custom data analytics tools, including responsive dashboards and streamlined workflows. We specialize in bioinformatics but our preference is to work with all types of data. 
+
+We work with companies, institutions and individual researchers on a contract basis. No idea is too big, no job is too small! 
 
 Contact us to learn more or schedule a consultation. 
 
