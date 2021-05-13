@@ -19,7 +19,7 @@ design:
   columns: "1"
   background:
     image: usgs-Eu2uXqoHenE-unsplash.jpg
-    image_darken: 0.55
+    image_darken: 0.6
     image_parallax: false
     image_position: center
     image_size: cover

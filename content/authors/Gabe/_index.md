@@ -1,52 +1,63 @@
 ---
-bio: My research interests include biochemistry, bioinformatics and machine learning
-  matter.
+authors:
+- gabe
+bio: Data scientist, biochemist, computational biologist, educator and life enthusiast.
+
 education:
   courses:
-  - course: PhD in Chemistry
-    institution: UCSC
+  - course: Postdoctoral fellowship
+    institution: HHMI and UCSC
     year: 2018
-  - course: MEng in Artificial Intelligence
-    institution: Massachusetts Institute of Technology
-    year: 2009
-  - course: BSc in Artificial Intelligence
-    institution: Massachusetts Institute of Technology
+  - course: PhD in Chemistry
+    institution: University of California, Santa Cruz
+    year: 2016
+  - course: BS in Biomolecular and Biochemistry
+    institution: University of California, Santa Cruz
     year: 2008
 email: ""
-highlight_name: false
 interests:
-- Artificial Intelligence
-- Computational Linguistics
-- Information Retrieval
+- Working with data in R 
+- Data visualization and machine learning 
+- Creating Dashboards
+- Workflow management
+- Version control
+- Bioinformatics
+- Command line tools and bash scripting
+- R, SQL and Python
+
+name: Gabe Mednick
 organizations:
-- name: Stanford University
-  url: https://www.stanford.edu/
-role: Professor of Artificial Intelligence
+- name: 
+  url: 
+role: 
 social:
 - icon: envelope
-  icon_pack: fas
-  link: /#contact
-- display:
-    header: true
-  icon: twitter
+  icon_pack: far
+  link: '#contact'
+- icon: twitter
   icon_pack: fab
-  label: Follow me on Twitter
-  link: https://twitter.com/GeorgeCushen
-- icon: graduation-cap
-  icon_pack: fas
-  link: https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ
+  link: https://twitter.com/GabeMednick
+  
 - icon: github
   icon_pack: fab
-  link: https://github.com/gcushen
-- icon: linkedin
+  link: https://github.com/gmednick
+
+
+- icon: linkedin-in
   icon_pack: fab
-  link: https://www.linkedin.com/
+  link: https://www.linkedin.com/in/gabe-mednick-77a000199/
+  
+- icon: google-scholar
+  icon_pack: ai
+  link:
 superuser: true
-title: Gabe Mednick
 
 ---
 
-Gabe Mednick is trained as a biochemist with interests in microbiology and spectroscopy. 
+My scientific interests are at the intersection of microbiology, molecular biology, biochemistry, physical chemistry and bioinformatics. 
 
-{{< icon name="download" pack="fas" >}} Download my {{< staticref "media/demo_resume.pdf" "newtab" >}}resumé{{< /staticref >}}.
+I enjoy the challenge of drawing insight from new types of data. My passion for data science.
+
+
+{{< icon name="download" pack="fas" >}} Download my {{< staticref "media/gmednickCV.pdf" "newtab" >}}resumé{{< /staticref >}}.
 

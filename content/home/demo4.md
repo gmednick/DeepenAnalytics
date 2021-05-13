@@ -4,13 +4,13 @@
 widget: blank
 
 # Activate this widget? true/false
-active: true
+active: false
 
 # This file represents a page section.
 headless: true
 
 # Order that this section appears on the page.
-weight: 22
+weight: 42
 
 title: 
 subtitle:
@@ -19,8 +19,8 @@ design:
   columns: "1"
   background:
     image: usgs-Eu2uXqoHenE-unsplash.jpg
-    image_darken: 0.6
-    image_parallax: true
+    image_darken: 0.55
+    image_parallax: false
     image_position: center
     image_size: cover
     text_color_light: true

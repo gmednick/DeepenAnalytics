@@ -2,15 +2,15 @@
 widget: hero
 headless: true
 active: true
-weight: 10
+weight: 6
 title: Deepen Analytics
 hero_media: turtle.png
-cta:
-  label: '**Meet the team**'
-  url: https://www.gabemednick.com/
-cta_alt:
-  label: Contact
-  url: https://www.gabemednick.com/
+# cta:
+#   label: '**Meet the team**'
+#   url: https://www.gabemednick.com/
+# cta_alt:
+#   label: Contact
+#   url: https://www.gabemednick.com/
 
 design:
   columns: "1"
@@ -33,6 +33,6 @@ Deepen Analytics is full stop shop for developing custom data analytics and bioi
 
 Contact us to learn more or schedule a consultation. 
 
-- Services:
+
 
 

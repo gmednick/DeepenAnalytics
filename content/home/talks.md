@@ -6,6 +6,9 @@ widget: pages
 # This file represents a page section.
 headless: true
 
+# Add or remove section
+active: false
+
 # Order that this section appears on the page.
 weight: 70
 
