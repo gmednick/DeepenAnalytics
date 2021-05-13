@@ -24,8 +24,17 @@ content:
     netlify:
       # Enable CAPTCHA challenge to reduce spam?
       captcha: false
-  
+
 design:
-  columns: '2'
+  columns: "2"
+  background:
+    image: usgs-Eu2uXqoHenE-unsplash.jpg
+    image_darken: 0.4
+    image_parallax: true
+    image_position: center
+    image_size: cover
+    text_color_light: true
+  spacing:
+    padding: ["20px", "0", "20px", "0"]
 ---
 
