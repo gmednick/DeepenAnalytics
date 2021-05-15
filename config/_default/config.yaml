@@ -5,7 +5,7 @@
 
 title: Deepen Analytics # Website name
 baseurl: '' # Website URL
-copyright: '' # Footer text, e.g. '© {year} Me'
+copyright: '&copy; Deepen Analytics {year}' # Footer text, e.g. '© {year} Me'
 
 ############################
 ## LANGUAGE
