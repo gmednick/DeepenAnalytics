@@ -1,53 +1,56 @@
 ---
-bio: My research interests include biochemistry, bioinformatics and machine learning
-  matter.
+bio: Rafael got his start in computational biophysical chemistry as a PhD student at U.C. Santa Cruz. He has built a solid understanding of data science and machine learning on a foundation of python and Linux skills. Rafael spends his weekends climbing rocks and mountains with his family.
 education:
   courses:
   - course: PhD in Chemistry
-    institution: UCSC
-    year: 2018
-  - course: MEng in Artificial Intelligence
-    institution: Massachusetts Institute of Technology
-    year: 2009
-  - course: BSc in Artificial Intelligence
-    institution: Massachusetts Institute of Technology
-    year: 2008
+    institution: University of California, Santa Cruz
+    year: 2017
+  - course: BSc in Chemical Biology
+    institution: University of California, Berkeley
+    year: 2011
 email: ""
 highlight_name: false
 interests:
 - Artificial Intelligence
-- Computational Linguistics
-- Information Retrieval
+- Computational Biochemistry and Biophysics
+- Data Visualization
 organizations:
 - name: Deepen Analytics
-  url: https://www.stanford.edu/
-role: Co-founder and CEO
+  url: https://www.Lore-ipsum.com
+role: Co-founder and Data Scientist
+
 social:
 - icon: envelope
   icon_pack: fas
   link: /#contact
 - display:
     header: false
-  icon: twitter
+
+- icon: twitter
   icon_pack: fab
   label: Follow me on Twitter
   link: 
 - icon: graduation-cap
   icon_pack: fas
   link: https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ
+  
 - icon: github
   icon_pack: fab
-  link: https://github.com/gcushen
+  link: https://github.com/Rafael-SV
 - icon: linkedin
   icon_pack: fab
-  link: https://www.linkedin.com/
+  link: https://www.linkedin.com/in/rafael-silverman-y-de-la-vega/ 
 superuser: true
 title: Rafael Silverman y de la Vega
 
 ---
 
-Rafa is trained as a biochemist with interests in microbiology and spectroscopy. 
+Rafael is trained as a biophysical chemist, has a decade of python experience, and has been using data science to answer complex questions for 2 years.  
+When he is not at the keyboard he can sometimes be found scaling shear mountain faces or catching waves at the local beaches.
 
+<<<<<<< HEAD
 {{< icon name="download" pack="fas" >}} Download my {{< staticref "media/demo_resume.pdf" "newtab" >}}resumé{{< /staticref >}}
+=======
+>>>>>>> 0adf623de8f6466e755ad2a3152b16dec4e27c4c
 
 
