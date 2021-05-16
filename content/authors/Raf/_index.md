@@ -16,7 +16,7 @@ interests:
 - Data Visualization
 organizations:
 - name: Deepen Analytics
-  url: https://www.Lore-ipsum.com
+  url: 
 role: Co-founder and Data Scientist
 
 social:
@@ -30,10 +30,7 @@ social:
   icon_pack: fab
   label: Follow me on Twitter
   link: 
-- icon: graduation-cap
-  icon_pack: fas
-  link: https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ
-  
+
 - icon: github
   icon_pack: fab
   link: https://github.com/Rafael-SV
@@ -48,9 +45,7 @@ title: Rafael Silverman y de la Vega
 Rafael is trained as a biophysical chemist, has a decade of python experience, and has been using data science to answer complex questions for 2 years.  
 When he is not at the keyboard he can sometimes be found scaling shear mountain faces or catching waves at the local beaches.
 
-<<<<<<< HEAD
 {{< icon name="download" pack="fas" >}} Download my {{< staticref "media/demo_resume.pdf" "newtab" >}}resumé{{< /staticref >}}
-=======
->>>>>>> 0adf623de8f6466e755ad2a3152b16dec4e27c4c
+
 
 
