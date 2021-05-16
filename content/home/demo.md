@@ -10,9 +10,9 @@ active: true
 headless: true
 
 # Order that this section appears on the page.
-weight: 12
+weight: 14
 
-title: Meet the Team
+title: 
 subtitle:
 
 design:
@@ -20,7 +20,7 @@ design:
   background:
     image: sarah-lee-QURU8IY-RaI-unsplash.jpg
     image_darken: 0.6
-    image_parallax: false
+    image_parallax: true
     image_position: center
     image_size: cover
     text_color_light: true
@@ -28,4 +28,5 @@ design:
     padding: ["20px", "0", "20px", "0"]
 ---
 
+# Meet the Team
 

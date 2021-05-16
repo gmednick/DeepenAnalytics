@@ -23,8 +23,6 @@ social:
 - icon: envelope
   icon_pack: fas
   link: /#contact
-- display:
-    header: false
 
 - icon: twitter
   icon_pack: fab

@@ -4,14 +4,14 @@
 widget: blank
 
 # Activate this widget? true/false
-active: false
+active: true
 
 
 # This file represents a page section.
 headless: true
 
 # Order that this section appears on the page.
-weight: 142
+weight: 12
 
 title: 
 subtitle:
@@ -19,7 +19,7 @@ subtitle:
 design:
   columns: "1"
   background:
-    image: sarah-lee-QURU8IY-RaI-unsplash.jpg
+    image: 
     image_darken: 0.55
     image_parallax: true
     image_position: center
