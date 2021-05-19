@@ -29,7 +29,7 @@ advanced:
 
 ****
 
-Deepen Analytics is a full stop shop for your data science needs. Our team can help you develop custom analytic tools, including responsive dashboards and streamlined workflows. Our backgrounds are in chemistry and biology but we will welcome any type of data. 
+Deepen Analytics is a full stop shop for your data science needs. Our team can help you develop custom analytic tools, including responsive dashboards and streamlined workflows. Our backgrounds are in chemistry and biology but we are fundamentally problem solvers that welcome any type of data. 
 
 We work with companies, institutions and individual researchers on a contract basis. No idea is too big and no job is too small! 
 

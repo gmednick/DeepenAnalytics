@@ -25,9 +25,9 @@ interests:
 
 name: Gabe Mednick
 organizations:
-- name: Deepen Analytics
+- name: 
   url:
-role: Co-founder and R Ninja
+role: Deepen Analytics Co-founder and aspiring R Ninja
 social:
 - icon: envelope
   icon_pack: far

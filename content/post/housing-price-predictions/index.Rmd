@@ -1,0 +1,229 @@
+---
+title: Housing Price Predictions
+author: Gabe Mednick
+date: '2021-05-18'
+slug: AmesHousing
+categories: []
+tags: []
+subtitle: ''
+summary: 'Compare logistic regression to k-nearest neighbors clustering using the tidymodels framework for machine learning'
+authors: []
+lastmod: ''
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+```{r setup, include=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(tidymodels)
+library(AmesHousing)
+library(leaflet)
+theme_set(theme_light())
+```
+
+In this post, we will explore the Ames housing dataset and use it to create a model for price prediction. The dataset, available  in the `AmesHousing` package, contains 81 features for 3000 home sales between 2006-2010. It is a clean version of the dataset, so no cleaning is needed. However, we will need to do some data engineering later on.  
+
+```{r}
+ames_df <- make_ames() %>% 
+  janitor::clean_names()
+
+# Here are a few functions that I used to get an initial feel for the dataset
+#ames_df %>% count(neighborhood)
+#summary(ames_df)
+#View(ames_df)
+#dim(ames_df)
+```
+
+Since sale price is the feature of interest, let's make a closer inspection by plotting it. Even before we look at a histogram of sale price, we can imagine that the distribution might have a bell-shape with a skewed tale on the right owing to a few uber-expensive mansions. In that case, we will want to apply a log transformation to the sale price before modeling. We will take this into consideration when we get to data engineering.
+
+```{r}
+library(scales)
+library(patchwork)
+sale_price_dist <- ggplot(ames_df, aes(x = sale_price)) + 
+  geom_histogram(bins = 50) +
+  geom_vline(lty = 2, color = 'red', xintercept = mean(ames_df$sale_price)) +
+  scale_x_continuous(labels = dollar_format()) +
+  labs(x = 'sale price')
+
+sale_price_log_dist <- ggplot(ames_df, aes(x = sale_price)) + 
+  geom_histogram(bins = 50) +
+  geom_vline(lty = 2, color = 'red', xintercept = mean(ames_df$sale_price)) +
+  #scale_x_continuous(labels = dollar_format())  +
+  scale_x_log10() +
+  labs(x = 'log(sale price)')
+
+sale_price_dist | sale_price_log_dist 
+```
+
+How has sale price changed with time?
+```{r}
+p <- ames_df %>% select(neighborhood, year_sold, sale_price) %>% 
+  group_by(year_sold) %>% 
+  mutate(avg_sale_price = mean(sale_price)) %>% 
+  arrange(year_sold) %>% 
+  ggplot(aes(year_sold, avg_sale_price)) +
+  geom_line() +
+  theme(legend.position = 'none') +
+  scale_y_continuous(labels = comma)
+
+plotly::ggplotly(p)
+```
+
+
+The dataset includes longitude and latitude coordinates for each house. It is reasonable to assume that sale price might have a strong correlation with neighborhood. In the map below, houses (circles) are colored by neighborhood and the size of the circle is weighted by sale price. In order to better visualize the individual circles, `dplyr::slice_sample()` can be used to randomly sample a limited number of houses--we are looking at 600 in the Leaflet map shown below.
+
+
+```{r}
+library(RColorBrewer)
+pal <- colorFactor(
+  palette = 'Dark2',
+  domain = ames_df$neighborhood
+)
+
+library(RColorBrewer)
+pal <- colorFactor(
+  palette = 'Dark2',
+  domain = ames_df$neighborhood
+)
+ames_random_samp <- ames_df %>% 
+  slice_sample(n = 600)
+
+ames_random_samp %>% group_by(neighborhood) %>% leaflet(data = .,
+        options = leafletOptions(zoomControl = FALSE,
+                                 minZoom = 12, maxZoom = 12, dragging = FALSE)) %>% 
+  addTiles() %>%  
+  addCircles(~longitude, ~latitude, color = ~pal(neighborhood), radius = 1, weight = ~sale_price*2e-5, opacity = 1)
+
+```
+
+Now that we have a better feel for our data, let's prepare it for our machine learning workflow. The first thing we want to do it split it into a training and test set. As well, we will use `vfold_cv()` to resample the training set.
+
+```{r}
+set.seed(518)
+ames_split <- initial_split(ames_df, strata = "sale_price")
+
+ames_train <- training(ames_split)
+ames_test <- testing(ames_split)
+
+resamps <- vfold_cv(ames_train, strata = "sale_price")
+```
+
+Data engineering with recipes package, provides an arsenal of data transformations that may be necessary and/or beneficial to the predictive power of our trained machine learning model. 
+
+```{r}
+ames_rec <-
+  recipe(sale_price ~ ., data = ames_train) %>%
+  step_log(sale_price, base = 10) %>%
+  step_YeoJohnson(lot_area, gr_liv_area) %>%
+  step_other(neighborhood, threshold = .1)  %>%
+  step_dummy(all_nominal()) %>%
+  step_zv(all_predictors()) %>%
+  step_ns(longitude, deg_free = tune("lon")) %>%
+  step_ns(latitude, deg_free = tune("lat"))
+
+# ames_rec <- 
+#   recipe(Sale_Price ~ Neighborhood + Gr_Liv_Area + Year_Built + Bldg_Type + 
+#            Latitude + Longitude, data = ames_train) %>%
+#   step_log(Gr_Liv_Area, base = 10) %>% 
+#   step_other(Neighborhood, threshold = 0.01) %>% 
+#   step_dummy(all_nominal_predictors()) %>% 
+#   step_interact( ~ Gr_Liv_Area:starts_with("Bldg_Type_") ) %>% 
+#   step_ns(Latitude, Longitude, deg_free = 20)
+
+# tidy_rec <- recipe(Sale_Price~., data = tidy_train) %>% 
+#   step_nzv(all_predictors()) %>% 
+#   step_corr(all_numeric(), -all_outcomes()) %>% 
+#   step_lincomb(all_numeric(), -all_outcomes()) %>% 
+#   step_normalize(all_numeric(), -all_outcomes()) %>% 
+#   step_dummy(all_nominal()) 
+# 
+# spline_rec <- recipe(Sale_Price~., data = tidy_train) %>% 
+#   step_nzv(all_predictors()) %>% 
+#   step_corr(all_numeric(), -all_outcomes()) %>% 
+#   step_lincomb(all_numeric(), -all_outcomes()) %>% 
+#   step_rm(all_nominal()) %>% 
+#   step_bs(all_predictors()) %>% 
+#   step_YeoJohnson(all_predictors())
+
+# pca_rec <- recipe(Sale_Price~., data = tidy_train) %>% 
+#   step_nzv(all_predictors()) %>% 
+#   step_corr(all_numeric(), -all_outcomes()) %>% 
+#   step_lincomb(all_numeric(), -all_outcomes()) %>% 
+#   step_other(all_nominal()) %>% 
+#   step_normalize(all_numeric(), -all_outcomes()) %>% 
+#   step_dummy(all_nominal()) %>% 
+#   step_pca(all_predictors(), num_comp = 5)
+```
+
+```{r}
+# knn_model <-
+#   nearest_neighbor(
+#     mode = "regression",
+#     neighbors = tune("K"),
+#     weight_func = tune(),
+#     dist_power = tune()
+#   ) %>%
+#   set_engine("kknn")
+# 
+# pca_regression_model <- linear_reg() %>% 
+#   set_mode("regression") %>% 
+#   set_engine("lm")
+# 
+# spline_model <- linear_reg() %>% 
+#   set_mode("regression") %>% 
+#   set_engine("lm")
+# 
+# randomForest_model <- rand_forest(min_n = tune(), trees = tune()) %>% 
+#   set_mode("regression") %>% 
+#   set_engine("randomForest")
+# 
+# xgboost_model <- boost_tree(learn_rate = tune(), trees = tune(), tree_depth = tune()) %>% 
+#   set_mode("regression") %>% 
+#   set_engine("xgboost")
+
+
+```
+
+
+```{r}
+# ames_wflow <-
+#   workflow() %>%
+#   add_recipe(ames_rec) %>%
+#   add_model(knn_model)
+# 
+# ames_set <-
+#   parameters(ames_wflow) %>%
+#   update(K = neighbors(c(1, 50)))
+
+```
+
+```{r}
+# set.seed(518)
+# 
+# ames_grid <-
+#   ames_set %>%
+#   grid_max_entropy(size = 10)
+# 
+# ames_grid_search <-
+#   tune_grid(
+#     ames_wflow,
+#     resamples = rs_splits,
+#     grid = ames_grid
+#   )
+# 
+# ames_iter_search <-
+#   tune_bayes(
+#     ames_wflow,
+#     resamples = rs_splits,
+#     param_info = ames_set,
+#     initial = ames_grid_search,
+#     iter = 15
+#   )
+```
+
