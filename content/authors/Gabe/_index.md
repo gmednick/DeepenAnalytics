@@ -1,7 +1,7 @@
 ---
 authors:
 - gabe
-bio: Data scientist, biochemist, computational biologist, educator and nature enthusiast.
+bio: Data scientist, biochemist, computational biologist, educator and nature lover.
 
 education:
   courses:
@@ -54,7 +54,7 @@ title: Gabriel Mednick
   
 ---
 
-I have had a growing interest in bioinformatics and data science over the last several years. What started out as an effort to expand my scientific toolbox turned into a passion for programming and predictive modeling that has transformed my skill set and professional pursuits. I enjoy the challenge of drawing insight from all types of data. Each step of the process, from data cleaning and exploration to creating models, deriving predictions and communicating results, is a blend of art and science. Finding that blend, deriving insight and creating value is what drives my passion as a data scientist.
+I have had a passionate interest in bioinformatics and data science over the last several years. What started out as an effort to expand my scientific toolbox turned into a passion for programming and predictive modeling that has transformed my skill set and professional pursuits. I enjoy the challenge of drawing insight from all types of data. Each step of the process, from data cleaning and exploration to creating models, deriving predictions and communicating results, is a blend of art and science. Finding that blend, deriving insight and creating value is what drives my passion as a data scientist.
 
 
 {{< icon name="download" pack="fas" >}} Download my {{< staticref "media/gmednickCV.pdf" "newtab" >}}resumé{{< /staticref >}}

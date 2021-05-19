@@ -40,7 +40,7 @@ ames_df <- make_ames() %>%
 #dim(ames_df)
 ```
 
-Since sale price is the feature of interest, let's make a closer inspection by plotting it. Even before we look at a histogram of sale price, we can imagine that the distribution might have a bell-shape with a skewed tale on the right owing to a few uber-expensive mansions. In that case, we will want to apply a log transformation to the sale price before modeling. We will take this into consideration when we get to data engineering.
+Sale price is the feature of interest or response variable. Let's take a closer by plotting it as a distribution. Even before we visualize sale price as a histogram, we can imagine that the distribution might be something like a bell-shape with a skewed tale owing to a few uber-expensive mansions. In this case, we will want to apply a log transformation to the sale price before modeling. This will be addressed when we get to the data engineering step.
 
 ```{r}
 library(scales)
@@ -61,7 +61,8 @@ sale_price_log_dist <- ggplot(ames_df, aes(x = sale_price)) +
 sale_price_dist | sale_price_log_dist 
 ```
 
-How has sale price changed with time?
+How has the sale price changed with time? The plot below shows the average sale price plotted over the four years of available data. It gives us a general feel for the housing market over the four year period that the data was recorded. Grouping the data by neighborhood and plotting it was too busy. Instead, the data was grouped by year and the average sale price was calculated. 
+
 ```{r}
 p <- ames_df %>% select(neighborhood, year_sold, sale_price) %>% 
   group_by(year_sold) %>% 
