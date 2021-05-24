@@ -9,7 +9,7 @@ headless: true
 # Order that this section appears on the page.
 weight: 130
 
-title: Contact
+title: 'Contact <i class="fas fa-feather-alt"  style="color: #228B22"></i>'
 subtitle:
 
 content:
@@ -20,7 +20,7 @@ content:
   form:
     provider: formspree
     formspree:
-      id: test
+      id: "https://formspree.io/f/xoqydazl"
     netlify:
       # Enable CAPTCHA challenge to reduce spam?
       captcha: false
