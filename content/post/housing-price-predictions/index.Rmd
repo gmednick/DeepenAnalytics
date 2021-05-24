@@ -27,13 +27,13 @@ library(leaflet)
 theme_set(theme_light())
 ```
 
-## This post is a work in progress
+### This post is a work in progress. I hope to start out with a bare-bones modeling workflow using the Tidymodels ecosystem for machine learning in R. Once we have a basic workflow, we can try and improve model performance by switching out the model, resampling and/or further custominzing the data engineering steps. 
 
-In this post, we will explore the Ames housing dataset and use it to create a model for price prediction. The dataset, available  in the `AmesHousing` package, contains 81 features for 3000 home sales between 2006-2010. It is a clean version of the dataset, so no cleaning is needed. However, we will need to do some data engineering later on.  
+We are going to use the Ames housing dataset, available  in the `AmesHousing` package, to create a model for price prediction. The dataset contains 81 features on 3000 home sales around the University in Ames, Iowa between 2006-2010. We're going to try and use these features to train a linear regression model. This version of the data is clean but we will need to do some basic data engineering before we can train our model and test it. 
 
 ```{r}
 ames_df <- make_ames() %>% 
-  janitor::clean_names()
+  janitor::clean_names() # extracting the data from the AmesHousing package and converting all column names to lower snace_case
 
 # Here are a few functions that I used to get an initial feel for the dataset
 #ames_df %>% count(neighborhood)
@@ -42,7 +42,7 @@ ames_df <- make_ames() %>%
 #dim(ames_df)
 ```
 
-Sale price is the feature of interest or response variable. Let's take a closer by plotting it as a distribution. Even before we visualize sale price as a histogram, we can imagine that the distribution might be something like a bell-shape with a skewed tale owing to a few uber-expensive mansions. In this case, we will want to apply a log transformation to the sale price before modeling. This will be addressed when we get to the data engineering step.
+Since sale price is our feature of interest, let's consider the *home sale price distribution*. Even before we visualize sale price, we can imagine that the distribution might be skewed in the direction of higher price, owing to a few uber-expensive mansions. If that's the case, we will want to apply a log transformation to the sale price before modeling. 
 
 ```{r}
 library(scales)
@@ -62,24 +62,41 @@ sale_price_log_dist <- ggplot(ames_df, aes(x = sale_price)) +
 
 sale_price_dist | sale_price_log_dist 
 ```
+Figure 1 A.) Distribution of house count vs. sale price. B.) House count vs log(sale price). Dotted red lines specify the median price.
 
-How has the sale price changed with time? The plot below shows the average sale price plotted over the four years of available data. It gives us a general feel for the housing market over the four year period that the data was recorded. Grouping the data by neighborhood and plotting it was too busy. Instead, the data was grouped by year and the average sale price was calculated. 
+Let's also explore how the house sales are distributed across neighborhoods.
+
+```{r}
+ames_df %>% 
+  count(neighborhood) %>% 
+  mutate(neighborhood = str_replace_all(neighborhood, "_", " "),
+         neighborhood = fct_reorder(neighborhood, n)) %>% 
+  ggplot(aes(n, neighborhood, fill = neighborhood)) +
+  geom_col() +
+  labs(x = '# of houses sold by neighborhood', 
+       y = "") +
+  theme(legend.position = 'none')
+```
+
+How has the sale price changed with time? The boxplot below shows the sale price plotted over the five years of available data. The median sale price, specified by the black line in each box, is relatively stable over the five-year span. 
 
 ```{r}
 p <- ames_df %>% select(neighborhood, year_sold, sale_price) %>% 
   group_by(year_sold) %>% 
-  mutate(avg_sale_price = mean(sale_price)) %>% 
+  mutate(avg_sale_price = mean(sale_price),
+         year_sold = as.factor(year_sold)) %>% 
   arrange(year_sold) %>% 
-  ggplot(aes(year_sold, avg_sale_price)) +
-  geom_line() +
+  ggplot(aes(year_sold, sale_price)) +
+  geom_boxplot() +
   theme(legend.position = 'none') +
   scale_y_continuous(labels = comma)
 
 plotly::ggplotly(p)
 ```
 
+## Geospatial ananlysis
 
-The dataset includes longitude and latitude coordinates for each house. It is reasonable to assume that sale price might have a strong correlation with neighborhood. In the map below, houses (circles) are colored by neighborhood and the size of the circle is weighted by sale price. In order to better visualize the individual circles, `dplyr::slice_sample()` can be used to randomly sample a limited number of houses--we are looking at 600 in the Leaflet map shown below.
+The dataset includes longitude and latitude coordinates for each house. Using the leaflet package, we can plot the house locations by neighborhood. In addition, we can weight the circle size based on sale price. In order to better visualize the individual circles, `dplyr::slice_sample()` can be used to randomly sample a limited number of houses. We will select 600 house locations to plot on the Leaflet map shown below.
 
 
 ```{r}
@@ -99,16 +116,18 @@ ames_random_samp <- ames_df %>%
 
 ames_random_samp %>% group_by(neighborhood) %>% leaflet(data = .,
         options = leafletOptions(zoomControl = FALSE,
-                                 minZoom = 12, maxZoom = 12, dragging = FALSE)) %>% 
+                                 minZoom = 13, maxZoom = 13, dragging = FALSE)) %>% 
   addTiles() %>%  
   addCircles(~longitude, ~latitude, color = ~pal(neighborhood), radius = 1, weight = ~sale_price*2e-5, opacity = 1)
 
 ```
 
-Now that we have a better feel for the data, let's split it into a training and test set using the `rsample` package. We will also use `vfold_cv()` to resample the training set. By default `vfold_cv` will split the data into 10 folds (v) where each fold is split into a training and test set. 
+## Splitting the data 
+
+Now that we have a better feel for the data, let's split it into a training and test sets using the `rsample` package. We may also use `vfold_cv()` to resample the training set later on. 
 
 ```{r}
-library(recipes)
+library(rsample)
 
 set.seed(518)
 ames_split <- initial_split(ames_df, prop = 0.8, strata = "sale_price") 
@@ -117,21 +136,31 @@ ames_train <- training(ames_split)
 ames_test <- testing(ames_split)
 ```
 
-Data engineering with the `recipes` package, provides an arsenal of data transformations that may be necessary and/or beneficial to the predictive power of our trained machine learning model. 
+## Data preprocessing
+
+Data engineering with the `recipes` package, provides an arsenal of data transformations that may be necessary and beneficial to the predictive power of our trained machine learning model. 
 
 ```{r}
-library(recipes) #loaded with the tidymodels package
+library(recipes) 
 
 ames_rec <- 
   recipe(sale_price ~ ., data = ames_train) %>%
   step_log(sale_price, base = 10) %>% 
   step_other(neighborhood, threshold = 0.01) %>% 
-  step_dummy(all_nominal()) 
+  step_dummy(all_nominal())
+```
 
+## Model specification
+
+```{r}
 ames_lm <- linear_reg() %>% 
   set_engine("lm") %>% 
   set_mode("regression")
+```
 
+## Creating a workflow, fitting the model and making predictions
+
+```{r}
 lm_wkfl <- 
   workflow() %>% 
   add_model(ames_lm) %>% 
@@ -145,15 +174,11 @@ ames_wkfl_fit %>%
 
 ames_preds <- ames_wkfl_fit %>%
   collect_predictions()
+```
 
-# ames_test_rec <- ames_rec %>%
-#   prep() %>% 
-#   bake(new_data = ames_test) 
-#   
-# ames_results <- ames_test_rec %>% 
-#   select(sale_price) %>% 
-#   bind_cols(ames_preds)
+## Visualizing R-squared
 
+```{r}
 ggplot(ames_preds, aes(x = sale_price, y = .pred)) +
   geom_point() +
   geom_abline(color = 'blue', linetype = 2) +
