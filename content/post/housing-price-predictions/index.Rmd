@@ -6,7 +6,7 @@ slug: AmesHousing
 categories: []
 tags: []
 subtitle: ''
-summary: 'Compare logistic regression to k-nearest neighbors clustering using the tidymodels framework for machine learning'
+summary: 'Comparing regression models using the tidymodels framework for machine learning'
 authors: []
 lastmod: ''
 featured: no
