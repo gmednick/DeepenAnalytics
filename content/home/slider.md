@@ -70,12 +70,12 @@ item:
     overlay_img: ''
     overlay_filter: 0.5
     
-  - title: Explanatory data analysis
-    content: ''
-    align: center
-    overlay_color: '#4D774E'
-    overlay_img: ''
-    overlay_filter: 0.5
+  # - title: Explanatory data analysis
+  #   content: ''
+  #   align: center
+  #   overlay_color: '#4D774E'
+  #   overlay_img: ''
+  #   overlay_filter: 0.5
   
   - title: Text mining and natural language processing
     content: ''
