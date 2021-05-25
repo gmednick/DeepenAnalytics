@@ -43,7 +43,6 @@ title: Rafael Silverman y de la Vega
 Rafael is trained as a biophysical chemist, has a decade of python experience, and has been using data science to answer complex questions for 2 years.  
 When he is not at the keyboard he can sometimes be found scaling shear mountain faces or catching waves at the local beaches.
 
-{{< icon name="download" pack="fas" >}} Download my {{< staticref "media/demo_resume.pdf" "newtab" >}}resumé{{< /staticref >}}
 
 
 
