@@ -4,7 +4,7 @@ headless: true
 active: true
 weight: 6
 title: Deepen Analytics
-hero_media: turtle.png
+hero_media: manta.png
 # cta:
 #   label: '**Meet the team**'
 #   url: https://www.gabemednick.com/
