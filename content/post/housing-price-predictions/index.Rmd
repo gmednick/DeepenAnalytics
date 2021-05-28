@@ -44,7 +44,7 @@ ames_df <- make_ames() %>%
 
 Since sale price is our feature of interest, let's consider the *home sale price distribution*. Even before we visualize sale price, we can imagine that the distribution might be skewed in the direction of higher price, owing to a few uber-expensive mansions. If that's the case, we will want to apply a log transformation to the sale price before modeling. 
 
-```{r}
+```{r figs, echo=FALSE, fig.width=7,fig.height=6,fig.cap="\\label{fig:figs} A.) Distribution of house count vs. sale price. B.) With log transformation with of sale price. The dotted red line is the median price."}
 library(scales)
 library(patchwork)
 sale_price_dist <- ggplot(ames_df, aes(x = sale_price)) + 
@@ -62,9 +62,9 @@ sale_price_log_dist <- ggplot(ames_df, aes(x = sale_price)) +
 
 sale_price_dist | sale_price_log_dist 
 ```
-Figure 1 A.) Distribution of house count vs. sale price. B.) House count vs log(sale price). Dotted red lines specify the median price.
 
-Let's also explore how the house sales are distributed across neighborhoods.
+
+Let's also visualize how the house sales are distributed across neighborhoods.
 
 ```{r}
 ames_df %>% 
@@ -78,7 +78,7 @@ ames_df %>%
   theme(legend.position = 'none')
 ```
 
-How has the sale price changed with time? The boxplot below shows the sale price plotted over the five years of available data. The median sale price, specified by the black line in each box, is relatively stable over the five-year span. 
+How has the sale price changed with time? The boxplots below show the sale price for each year in the dataset. The median price, specified by the black line in each box, is relatively stable over the five-year span. 
 
 ```{r}
 p <- ames_df %>% select(neighborhood, year_sold, sale_price) %>% 
@@ -94,7 +94,7 @@ p <- ames_df %>% select(neighborhood, year_sold, sale_price) %>%
 plotly::ggplotly(p)
 ```
 
-## Geospatial ananlysis
+## Geospatial analysis
 
 The dataset includes longitude and latitude coordinates for each house. Using the leaflet package, we can plot the house locations by neighborhood. In addition, we can weight the circle size based on sale price. In order to better visualize the individual circles, `dplyr::slice_sample()` can be used to randomly sample a limited number of houses. We will select 600 house locations to plot on the Leaflet map shown below.
 
@@ -158,7 +158,7 @@ ames_lm <- linear_reg() %>%
   set_mode("regression")
 ```
 
-## Creating a workflow, fitting the model and making predictions
+## Creating a workflow, fitting the model and making predictions on the testset
 
 ```{r}
 lm_wkfl <- 

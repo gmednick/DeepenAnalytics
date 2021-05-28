@@ -1,0 +1,275 @@
+---
+title: COVID Shiny App
+author: Gabe Mednick
+date: '2020-12-18'
+slug: covid-shiny-app
+categories: []
+tags: []
+subtitle: ''
+summary: 'Covid cases and deaths in the United States'
+authors: []
+lastmod: '2020-11-06T13:38:49-08:00'
+featured: no
+image:
+  caption: '[COVID-19](covid-image.jpg)'
+  focal_point: ''
+  preview_only: no
+projects: []
+runtime: 'shiny'
+---
+##### The [COVID Case Tracker App](https://biolight-informatics.shinyapps.io/covid-app/) allows one to visualize the number of cases and deaths per State over time. California, Hawaii and Florida are selected by default but you can add or remove States using the selector box in the sidebar. The interactive maps use color to show the total cases and total deaths per million people by State. Detailed information can be viewed by scrolling over the State of interest. 
+
+##### The data is from [Johns Hopkins University](https://github.com/CSSEGISandData/COVID-19) and is updated daily. The app is hosted [here](https://biolight-informatics.shinyapps.io/covid-app/) but but has recently stopped working because loading the data surpasses the free tier usage on Shinyapps.io. You can still run it on your own machine until I can find a fix. The code is available on [Git<i class="fab fa-github"  style="color: #RRGGBB,"></i>hub](https://github.com/gmednick/covid-shiny-app/blob/master/app.R).
+
+![](covid-app-img.png)
+
+```{r include = FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE)
+```
+
+```{r}
+library(tidyverse)
+library(lubridate)
+library(shiny)
+library(shinydashboard)
+library(usmap)
+library(ggrepel)
+library(plotly)
+library(viridis)
+library(shinythemes)
+theme_set(theme_light())
+scale_colour_discrete <- scale_colour_viridis_d
+```
+
+```{r}
+url <- "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/"
+data <- c(
+  "time_series_covid19_confirmed_global.csv",
+  "time_series_covid19_deaths_global.csv",
+  "time_series_covid19_confirmed_US.csv",
+  "time_series_covid19_deaths_US.csv"
+)
+urls <- str_c(url, data)
+```
+
+
+```{r}
+us_confirmed <- read_csv(urls[3]) %>%
+  pivot_longer(cols = -(UID:Combined_Key), names_to = "date", values_to = "cases") %>%
+  select(Admin2:cases) %>%
+  janitor::clean_names() %>%
+  mutate(date = mdy(date))
+us_deaths <- read_csv(urls[4]) %>%
+  pivot_longer(cols = -(UID:Population), names_to = "date", values_to = "deaths") %>%
+  select(Admin2:deaths) %>%
+  janitor::clean_names() %>%
+  mutate(date = mdy(date))
+
+us_data <- us_deaths %>%
+  select(deaths, date, combined_key, population) %>%
+  left_join(us_confirmed, by = c("date", "combined_key")) %>%
+  select(date, state = province_state, county = admin2, cases, deaths, population, lon = long, lat) %>%
+  filter(!state %in% c("Diamond Princess", "Grand Princess"))
+
+# get population data
+uid_lookup_url <- "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/UID_ISO_FIPS_LookUp_Table.csv"
+
+uid <- read_csv(uid_lookup_url) %>%
+  filter(Country_Region == 'US') %>% 
+  select(c(Province_State, Admin2, fips = FIPS))
+```
+
+
+```{r}
+us_state <- us_data %>%
+  group_by(state, date) %>%
+  summarize(
+    cases = sum(cases),
+    deaths = sum(deaths),
+    population = sum(population)
+  ) %>%
+  ungroup()
+
+us_totals <- us_state %>%
+  group_by(state) %>%
+  summarize(
+    cases = max(cases),
+    deaths = max(deaths),
+    population = max(population)
+  ) %>%
+  filter(cases > 0) %>%
+  mutate(
+    deaths_per_1e6 = 1000000 * (deaths / population),
+    cases_per_1e6 = 1000000 * (cases / population)
+  ) %>%
+  filter(!is.na(deaths_per_1e6)) %>%
+  arrange(desc(cases))
+```
+
+
+```{r}
+county_filter <- tibble(unique(usmap::us_map(regions = "counties")$county)) %>%
+    select(county = `unique(usmap::us_map(regions = "counties")$county)`) %>% 
+    mutate(county = str_remove_all(county, " County"))
+
+
+us_counties <- us_data %>% 
+  group_by(county, state, date) %>%
+  summarize(
+    cases = sum(cases),
+    deaths = sum(deaths),
+    population = sum(population)
+  ) %>%
+  ungroup() %>% 
+    group_by(county, state) %>% 
+  summarize(
+    cases = max(cases),
+    deaths = max(deaths),
+    population = max(population)
+  ) %>%
+    ungroup() %>% 
+  filter(cases > 0,
+         county %in% county_filter$county) %>%
+  mutate(
+    deaths_per_1e6 = 1000000 * (deaths / population),
+    cases_per_1e6 = 1000000 * (cases / population)
+  ) %>%
+  filter(!is.na(deaths_per_1e6)) %>%
+  arrange(desc(cases))
+
+us_counties <- us_counties %>% 
+    left_join(uid, by = c('state' = 'Province_State', 'county' = 'Admin2')) %>% 
+    filter(county != 'Garfield')
+
+```
+## Time Series Animation
+#### This animated map shows the change in case count over the first 12 months of the COVID pandemic.
+```{r}
+library(gganimate)
+library(transformr)
+library(directlabels)
+
+us_monthly <- us_state %>%
+  mutate(month = month(date),
+         month_name = factor(month.name[month],levels=month.name)) %>% 
+  group_by(state, month, month_name) %>%
+  summarize(
+    cases = max(cases),
+    deaths = max(deaths),
+    population = max(population)
+  ) %>%
+  filter(cases > 0) %>%
+  mutate(
+    deaths_per_1e6 = 1000000 * (deaths / population),
+    cases_per_1e6 = 1000000 * (cases / population)
+  ) %>%
+  filter(!is.na(deaths_per_1e6)) 
+
+p <- plot_usmap(
+  data = us_monthly,
+  values = "cases_per_1e6",
+  color = "black") +
+  theme(panel.background = element_rect(color = "black", fill = "grey80")) +
+  theme(legend.position = "right", plot.title = element_text(face = "bold", size = 18, color = "#367588")) +
+  labs(title = paste0("Cases by County")) +
+  scale_fill_viridis_c(
+    name = "Cases by Month",
+    alpha = 0.5
+  ) 
+
+p <- p + 
+  transition_states(month_name) +
+  labs(title = 'Month is {closest_state}') 
+  
+
+animate(p, fps=5, end_pause = 20)
+
+```
+
+```{r}
+us_total_sums <- us_data %>%
+  group_by(date) %>%
+  summarize(
+    total_cases = sum(cases),
+    total_deaths = sum(deaths)
+  )
+
+ daily_summary <- us_data %>%
+      group_by(state, date) %>%
+      summarise(
+        cases_n = sum(cases),
+        deaths_n = sum(deaths)
+      ) %>%
+      mutate(
+        new_cases_n = cases_n - lag(cases_n, default = 0),
+        new_deaths_n = deaths_n - lag(deaths_n, default = 0)
+      ) %>%
+      ungroup() %>%
+      group_by(state) %>% 
+      slice(which.max(date)) %>% 
+      summarise(total_new_cases = sum(new_cases_n),
+                total_new_death = sum(new_deaths_n)) %>% 
+      ungroup() 
+```
+
+## County Level Map
+#### This map includes county level case counts. The detail is great but it uses too much memory to host. Unlike the Shiny covid app, this post will only update when I compile the document (last updated on `r format(Sys.Date(), "%A, %B %d, %Y")`).
+
+```{r}
+# Cases per million by county
+
+county_map <- plot_usmap(
+  data = us_counties,
+  exclude = "AK",
+  values = "cases_per_1e6",
+  color = "black",
+  size = 0.1) +
+  ggplot2::aes(text = paste0(
+    "County: ", county,
+    "\nPopulation: ", format(population, big.mark = ","),
+    "\nTotal cases: ", format(cases, big.mark = ","),
+    "\nCases per mill: ", format(round(cases_per_1e6, 0), big.mark = ",")
+  )) +
+  scale_fill_viridis_c(
+    name = "Cases per million",
+    alpha = 0.5
+  ) +
+  theme(panel.background = element_rect(color = "black", fill = "grey80")) +
+  theme(legend.position = "right", plot.title = element_text(face = "bold", size = 18, color = "#367588")) +
+  labs(title = paste0("Cases by County"))
+
+ggplotly(county_map,
+      tooltip = "text"
+    ) %>%
+      config(displayModeBar = FALSE)
+
+```
+
+#### Zooming on Calinfornia. C'mon y'all, we're all in this together! It sure would be beautiful to see some community team work across this sacred land. 
+
+```{r}
+ca_map <- plot_usmap(
+    data = us_counties, values = "cases_per_1e6", include = c("CA"), color = "black",
+ size = 0.1) +
+  ggplot2::aes(text = paste0(
+    "State: ", county,
+    "\nPopulation: ", format(population, big.mark = ","),
+    "\nTotal cases: ", format(cases, big.mark = ","),
+    "\nCases per mill: ", format(round(cases_per_1e6, 0), big.mark = ",")
+  )) +
+  scale_fill_viridis_c(
+    name = "Cases per million by county",
+    alpha = 0.5
+  ) +
+  theme(panel.background = element_rect(color = "black", fill = "grey80")) +
+  theme(legend.position = "right", plot.title = element_text(face = "bold", size = 18, color = "#367588")) +
+  labs(title = "California cases by County")
+
+ggplotly(ca_map,
+      tooltip = "text"
+    ) %>%
+      config(displayModeBar = FALSE)
+```
+
+
+#### I love the color package Viridis, used throughout this post to convey informatin with color. This color palette is used to preserve information for viewers with common forms of color blindness. Counties with missing data are shaded in grey. The code behind behind the maps and animatins is available on [Github](https://github.com/gmednick/gabemednick/blob/master/content/post/2020-11-6-covid-app/index.Rmd).
