@@ -5,9 +5,9 @@ active: true
 weight: 6
 title: Deepen Analytics
 hero_media: manta.png
-# cta:
-#   label: '**Meet the team**'
-#   url: https://www.gabemednick.com/
+cta:
+  label: '**Contact us to discuss your data science solutions**'
+  url: '#contact'
 # cta_alt:
 #   label: Contact
 #   url: https://www.gabemednick.com/
@@ -29,11 +29,11 @@ advanced:
 
 ****
 
-Deepen Analytics is a full stop shop for your data science needs. Our team can help you develop custom analytics tools, including responsive dashboards and custom workflows for your data. Our backgrounds are in chemistry and biology but we are innovators at heart and welcome any type of data. 
+Deepen Analytics is a one stop shop for your data science needs. Our team can help you develop custom analytics tools, including responsive dashboards and custom workflows for your data prediction needs. Our backgrounds are in chemistry and biology but we are innovators at heart and welcome any type of data projects. 
 
-We work with companies, institutions and individual researchers on a contract basis. No idea is too big and no job is too small! 
+We work with companies, institutions and individual researchers on a contract basis. No idea is too big, no job too small! 
 
-Contact us to learn more or schedule a consultation. 
+Contact us to discuss how our data science solutions can help you. 
 
 
 
