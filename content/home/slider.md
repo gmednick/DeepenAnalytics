@@ -41,54 +41,54 @@ item:
     content: ''
     align: center
     overlay_color: '#203647'
-    overlay_img: ''
+    overlay_img: 'ai-photos/eyes.png'
     overlay_filter: 0.5
   - title: Bioinformatics
     content: ''
     align: center
     overlay_color: '#12232E'
-    overlay_img: ''
+    overlay_img: 'ai-photos/sparkler.png'
     overlay_filter: 0.5 
     
   - title: Data retrieval and storage
     content: ''
     align: center
     overlay_color: ''
-    overlay_img: ''
+    overlay_img: 'ai-photos/nets.png'
     overlay_filter: 0.5
   - title: Data cleaning and engineering
     content: ''
     align: center
     overlay_color: '#004E7C'
-    overlay_img: ''
-    overlay_filter: 0.5
+    overlay_img: 'ai-photos/ali-shah-lakhani-sp1BZ1atp7M-unsplash.jpg'
+    overlay_filter: 0.8
     
   - title: Exploratory data analysis
     content: ''
     align: center
     overlay_color: '#164A41'
-    overlay_img: ''
+    overlay_img: 'ai-photos/h-heyerlein-ndja2LJ4IcM-unsplash.jpg'
     overlay_filter: 0.5
     
   # - title: Explanatory data analysis
   #   content: ''
   #   align: center
   #   overlay_color: '#4D774E'
-  #   overlay_img: ''
+  #   overlay_img: 'ai-photos/lips.png'
   #   overlay_filter: 0.5
   
   - title: Text mining and natural language processing
     content: ''
     align: center
     overlay_color: '#591COB'
-    overlay_img: ''
+    overlay_img: 'ai-photos/code-lights.png'
     overlay_filter: 0.5
     
   - title: Custom dashboards and workflows
     content: ''
     align: center
     overlay_color: '#283747'
-    overlay_img: ''
+    overlay_img: 'ai-photos/lightwall.png'
     overlay_filter: 0.5
   
 ---
