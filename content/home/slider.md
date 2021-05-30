@@ -56,7 +56,7 @@ item:
     overlay_color: ''
     overlay_img: 'ai-photos/nets.png'
     overlay_filter: 0.5
-  - title: Data cleaning and engineering
+  - title: Data cleaning and feature engineering
     content: ''
     align: center
     overlay_color: '#004E7C'
