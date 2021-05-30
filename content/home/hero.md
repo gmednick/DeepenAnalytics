@@ -4,7 +4,7 @@ headless: true
 active: true
 weight: 6
 title: Deepen Analytics
-hero_media: manta.png
+hero_media: turtle.png
 cta:
   label: '**Contact us to discuss your data science needs**'
   url: '#contact'
