@@ -33,7 +33,7 @@ Deepen Analytics is a one stop shop for your data science needs. Our team can he
 
 We work with companies, institutions and individual researchers on a contract basis. No idea is too big, no job too small! 
 
-Contact us to discuss how our data science solutions can help you. 
+
 
 
 
