@@ -60,7 +60,7 @@ item:
     content: ''
     align: center
     overlay_color: '#004E7C'
-    overlay_img: 'geo-pics/geo-top.png'
+    overlay_img: 'geo-pics/usgs-rXj2M7xtdB8-unsplash.jpg'
     overlay_filter: 0.55
     
   - title: Exploratory data analysis
@@ -89,7 +89,7 @@ item:
     align: center
     overlay_color: '#283747'
     overlay_img: 'ai-photos/colorfall.png'
-    overlay_filter: .55
+    overlay_filter: 0.55
   
 ---
 
