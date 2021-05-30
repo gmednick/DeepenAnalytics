@@ -42,54 +42,54 @@ item:
     align: center
     overlay_color: '#203647'
     overlay_img: 'ai-photos/eyes.png'
-    overlay_filter: 0.5
+    overlay_filter: 0.55
   - title: Bioinformatics
     content: ''
     align: center
     overlay_color: '#12232E'
     overlay_img: 'ai-photos/sparkler.png'
-    overlay_filter: 0.5 
+    overlay_filter: 0.55 
     
   - title: Data retrieval and storage
     content: ''
     align: center
     overlay_color: ''
     overlay_img: 'ai-photos/nets.png'
-    overlay_filter: 0.5
+    overlay_filter: 0.55
   - title: Data cleaning and feature engineering
     content: ''
     align: center
     overlay_color: '#004E7C'
-    overlay_img: 'ai-photos/earth-nat.png'
-    overlay_filter: 0.8
+    overlay_img: 'geo-pics/geo-top.png'
+    overlay_filter: 0.55
     
   - title: Exploratory data analysis
     content: ''
     align: center
     overlay_color: '#164A41'
     overlay_img: 'ai-photos/eye.png'
-    overlay_filter: 0.5
+    overlay_filter: 0.55
     
   # - title: Explanatory data analysis
   #   content: ''
   #   align: center
   #   overlay_color: '#4D774E'
   #   overlay_img: 'ai-photos/eye.png'
-  #   overlay_filter: 0.5
+  #   overlay_filter: 0.4
   
   - title: Text mining and natural language processing
     content: ''
     align: center
     overlay_color: '#591COB'
     overlay_img: 'ai-photos/color-blur.png'
-    overlay_filter: 0.5
+    overlay_filter: 0.55
     
   - title: Custom dashboards and workflows
     content: ''
     align: center
     overlay_color: '#283747'
     overlay_img: 'ai-photos/colorfall.png'
-    overlay_filter: .8
+    overlay_filter: .55
   
 ---
 
