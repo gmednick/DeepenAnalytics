@@ -6,7 +6,7 @@ weight: 6
 title: Deepen Analytics
 hero_media: manta.png
 cta:
-  label: '**Contact us to discuss your data science solutions**'
+  label: '**Contact us to discuss your data science needs**'
   url: '#contact'
 # cta_alt:
 #   label: Contact
