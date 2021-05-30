@@ -56,7 +56,7 @@ title: Gabriel Mednick
 
 I have expertise as a biochemist but I am most passionate about bioinformatics and data science! What started out as an effort to expand my scientific toolbox turned into a love affair with programming and predictive modeling that transformed my skill set and professional pursuits. I enjoy drawing insight from data and solving new challenges. 
 
-When I find time outside of coding and family, I enjoy the ocean surfing, beaches and trails in Santa Cruz.
+When I have time outside of coding and family, I enjoy the ocean, beaches and trails around Santa Cruz.
 
 
 {{< icon name="download" pack="fas" >}} Download my {{< staticref "media/gmednickCV.pdf" "newtab" >}}resumé{{< /staticref >}}
