@@ -26,7 +26,7 @@ interests:
 name: Gabe Mednick
 organizations:
 - name: 
-  url:
+  url: https://www.gabemednick.com/
 role: Deepen Analytics Co-founder and aspiring R Ninja
 social:
 - icon: envelope
@@ -52,9 +52,10 @@ social:
 superuser: true
 title: Gabriel Mednick
   
+  
 ---
 
-I have expertise as a biochemist but I am most passionate about bioinformatics and data science! What started out as an effort to expand my scientific toolbox turned into a love affair with programming and predictive modeling that transformed my skill set and professional pursuits. I enjoy drawing insight from data and solving new challenges. 
+I have expertise as a biochemist but I am most passionate about bioinformatics and data science! What started out as an effort to expand my scientific toolbox turned into a love affair with programming and predictive modeling that has transformed my skill set and professional pursuits. I enjoy drawing insight from data and solving new challenges. 
 
 When I have time outside of coding and family, I enjoy the ocean, beaches and trails around Santa Cruz.
 

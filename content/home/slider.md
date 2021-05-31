@@ -60,7 +60,7 @@ item:
     content: ''
     align: center
     overlay_color: '#004E7C'
-    overlay_img: 'geo-pics/usgs-rXj2M7xtdB8-unsplash.jpg'
+    overlay_img: 'ai-photos/david-everett-strickler-2Iy0nMKmqtw-unsplash.jpg'
     overlay_filter: 0.55
     
   - title: Exploratory data analysis
