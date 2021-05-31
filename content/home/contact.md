@@ -28,7 +28,7 @@ content:
 design:
   columns: "2"
   background:
-    image: sarah-lee-QURU8IY-RaI-unsplash.jpg
+    image: stingray-img.png
     image_darken: 0.4
     image_parallax: true
     image_position: center
@@ -37,4 +37,5 @@ design:
   spacing:
     padding: ["20px", "0", "20px", "0"]
 ---
+
 
