@@ -124,7 +124,7 @@ ames_random_samp %>% group_by(neighborhood) %>% leaflet(data = .,
 
 ## Splitting the data 
 
-Now that we have a better feel for the data, let's split it into a training and test sets using the `rsample` package. We may also use `vfold_cv()` to resample the training set later on. 
+Now that we have a better feel for the data, let's  use the `rsample` package to split the data into training and test sets. For more robust predictions, we may also want to use `vfold_cv()` to resample the training set later on. 
 
 ```{r}
 library(rsample)
@@ -138,7 +138,7 @@ ames_test <- testing(ames_split)
 
 ## Data preprocessing
 
-Data engineering with the `recipes` package, provides an arsenal of data transformations that may be necessary and beneficial to the predictive power of our trained machine learning model. 
+Feature engineering with the `recipes` package, provides an arsenal of data transformations that may be necessary and beneficial to the predictive power of our trained machine learning model. 
 
 ```{r}
 library(recipes) 
