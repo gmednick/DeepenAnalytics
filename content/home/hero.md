@@ -6,7 +6,7 @@ weight: 6
 title: Deepen Analytics
 hero_media: turtle2.png
 cta:
-  label: '**Contact us to discuss your data science needs**'
+  label: '**CONTACT US TO DISCUSS YOUR DATA SCIENCE SOLUTIONS**'
   url: '#contact'
 # cta_alt:
 #   label: Contact
