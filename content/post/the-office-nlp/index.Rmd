@@ -257,4 +257,4 @@ words_expanded %>%
 ```
 
 
-#### This post was a lot of fun to work on and I hope to do a lot more NLP analysis in the future. NLP provides a powerful way to condense large amounts of text data into easily interpretable insights. The Tidytext package is a great way to work with text and complements the Tidyverse ecosystem. 
+#### This post was a lot of fun to work on and I hope to do more NLP analysis in the future. NLP provides a powerful way to condense large amounts of text data into easily interpretable insights. The Tidytext package is a great way to work with text and complements the Tidyverse ecosystem. 
