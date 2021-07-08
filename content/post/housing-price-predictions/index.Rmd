@@ -48,7 +48,7 @@ Since sale price is our feature of interest, let's consider the *home sale price
 library(scales)
 library(patchwork)
 sale_price_dist <- ggplot(ames_df, aes(x = sale_price)) + 
-  geom_histogram(bins = 50) +
+  geom_histogram(bins = 50, fill = "#c9ecb2") +
   geom_vline(lty = 2, color = 'red', xintercept = mean(ames_df$sale_price)) +
   scale_x_continuous(labels = dollar_format()) +
   labs(x = 'sale price')
