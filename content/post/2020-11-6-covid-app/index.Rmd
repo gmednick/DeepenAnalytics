@@ -1,5 +1,5 @@
 ---
-title: COVID Shiny App
+title: COVID Shiny Dashboard
 author: Gabe Mednick
 date: '2020-12-18'
 slug: covid-shiny-app
