@@ -17,13 +17,14 @@ image:
 projects: []
 runtime: 'shiny'
 ---
-##### The [US COVID Case Tracker App](https://biolight-informatics.shinyapps.io/covid-app/) allows one to visualize the number of cases and deaths per State over time. California, Hawaii and Florida are selected by default but you can add or remove States using the selector box in the sidebar. The interactive maps use color to show the total cases and total deaths per million people by State. Detailed information can be viewed by scrolling over the State of interest. 
+
+##### The [US COVID Case Tracker App](https://biolight-informatics.shinyapps.io/covid-app/) allows one to visualize the number of cases and deaths per State over time. California, Hawaii and Florida are selected by default but you can add or remove States using the selector box in the sidebar. The interactive maps use color to show the daily cases and deaths per million people by State. Detailed information can be viewed by scrolling over the State of interest. 
 
 ##### The data is from [Johns Hopkins University](https://github.com/CSSEGISandData/COVID-19) and is updated daily. The app is hosted [here](https://biolight-informatics.shinyapps.io/covid-app/) on Shinyapps.io. You can also grab my code [Git<i class="fab fa-github"  style="color: #RRGGBB,"></i>hub](https://github.com/gmednick/covid-shiny-app/blob/master/app.R) and run it on your own machine if you have R and RStudio installed. 
 
 ![This is what the app looks like!](covid-app-img.png)
 
-#### In this post, I'm including a few extra visualizations and an animation.
+#### In this post, I've added a county-level case map and an animation that were not included in the reactive dashboard.
 
 ```{r include = FALSE}
 knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE)
@@ -144,8 +145,11 @@ us_counties <- us_counties %>%
     filter(county != 'Garfield')
 
 ```
+
 ## Time Series Animation
+
 #### This animated map shows the change in case count (per million people) over the first 12 months of the COVID-19 pandemic.
+
 ```{r}
 library(gganimate)
 library(transformr)
@@ -247,7 +251,7 @@ ggplotly(county_map,
 
 ```
 
-#### Let's take a closer look and see how California is fairing. 
+#### Let's take a closer look at California. 
 
 ```{r}
 ca_map <- plot_usmap(
