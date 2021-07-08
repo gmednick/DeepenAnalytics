@@ -86,7 +86,7 @@ p <- ames_df %>% select(neighborhood, year_sold, sale_price) %>%
   mutate(avg_sale_price = mean(sale_price),
          year_sold = as.factor(year_sold)) %>% 
   arrange(year_sold) %>% 
-  ggplot(aes(year_sold, sale_price)) +
+  ggplot(aes(year_sold, sale_price, fill = sale_price)) +
   geom_boxplot() +
   theme(legend.position = 'none') +
   scale_y_continuous(labels = comma)
