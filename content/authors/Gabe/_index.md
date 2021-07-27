@@ -44,13 +44,13 @@ social:
 
 - icon: linkedin-in
   icon_pack: fab
-  link: https://www.linkedin.com/in/gabe-mednick-77a000199/
+  link: https://www.linkedin.com/in/gabe-mednick/
   
 - icon: google-scholar
   icon_pack: ai
   link:
 superuser: true
-title: Gabriel Mednick
+title: Gabriel Mednick, PhD
   
   
 ---

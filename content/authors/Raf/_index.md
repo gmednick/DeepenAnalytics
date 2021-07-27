@@ -36,7 +36,7 @@ social:
   icon_pack: fab
   link: https://www.linkedin.com/in/rafael-silverman-y-de-la-vega/ 
 superuser: true
-title: Rafael Silverman y de la Vega
+title: Rafael Silverman y de la Vega, PhD
 
 ---
 
