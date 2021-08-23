@@ -19,7 +19,7 @@ feature:
 - description: 
   icon: r-project
   icon_pack: fab
-  name: 
+  name: R project
 - description:
   icon: python
   icon_pack: fab
