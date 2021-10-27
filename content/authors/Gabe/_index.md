@@ -1,6 +1,4 @@
 ---
-authors:
-- gabe
 bio: Data scientist, biochemist, computational biologist, educator and nature lover.
 
 education:
@@ -33,9 +31,9 @@ social:
   icon_pack: far
   link: '#contact'
   
-- icon: twitter
-  icon_pack: fab
-  link: https://twitter.com/GabeMednick
+- icon:
+  icon_pack: 
+  link: 
   
 - icon: github
   icon_pack: fab

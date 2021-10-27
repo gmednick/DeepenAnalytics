@@ -1,4 +1,6 @@
 ---
+authors:
+- Raf
 bio: Rafael got his start in computational biophysical chemistry as a PhD student at U.C. Santa Cruz. He has built a solid understanding of data science and machine learning on a foundation of python and Linux skills. Rafael spends his weekends climbing rocks and mountains with his family.
 education:
   courses:
@@ -24,9 +26,9 @@ social:
   icon_pack: fas
   link: /#contact
 
-- icon: twitter
-  icon_pack: fab
-  label: Follow me on Twitter
+- icon: 
+  icon_pack: 
+  label:
   link: 
 
 - icon: github
