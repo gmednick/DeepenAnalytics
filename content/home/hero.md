@@ -31,7 +31,7 @@ advanced:
 
 Deepen Analytics is a one-stop shop for your data science needs. We can help you develop custom analytics tools to streamline your data analysis and predictive modeling workflows. Our team brings domain knowledge in biophysical chemistry and biochemistry but we are innovators at heart and welcome any type of data science projects. 
 
-We work with companies, institutions and individual researchers on a contract basis. We are particularly interested in projects that advance science and have a positive impact on the planet and humanity. No idea is too big, no job too small! 
+We work with companies, institutions and individual researchers on a contract basis and are particularly interested in projects that advance science and have a positive impact on the planet and humanity. No idea is too big, no job too small! 
 
 
 
