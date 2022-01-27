@@ -8,6 +8,7 @@ hero_media: turtle2.png
 cta:
   label: '**CONTACT US TO DISCUSS YOUR DATA SCIENCE SOLUTIONS**'
   url: '#contact'
+
 # cta_alt:
 #   label: Contact
 #   url: https://www.gabemednick.com/
